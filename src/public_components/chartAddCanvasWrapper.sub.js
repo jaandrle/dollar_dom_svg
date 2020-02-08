@@ -1,14 +1,13 @@
 /* jshint esversion: 6,-W097, -W040, browser: true, expr: true, undef: true */
 public.chartAddCanvasWrapper= function({
     className= "C__chartCanvas",
-    axis: [ X, Y ],
+    axis: [ x, y ],
     chart: [ width, height ]
 }){
     return $dom.component("SVG", {
         viewBox: `0 ${-height} ${width} ${height}`,
-        width, height, 
+        width, height, x, y,
         overflow: "visible",
-        transform: `translate(${X} ${Y})`,
         className,
     }, { namespace_group: "SVG" })
     .share;

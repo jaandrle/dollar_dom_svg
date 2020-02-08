@@ -16,14 +16,13 @@ const $dom_svg= (function(){
     };
     public.chartAddCanvasWrapper= function({
         className= "C__chartCanvas",
-        axis: [ X, Y ],
+        axis: [ x, y ],
         chart: [ width, height ]
     }){
         return $dom.component("SVG", {
             viewBox: `0 ${-height} ${width} ${height}`,
-            width, height, 
+            width, height, x, y,
             overflow: "visible",
-            transform: `translate(${X} ${Y})`,
             className,
         }, { namespace_group: "SVG" })
         .share;
@@ -106,7 +105,7 @@ public.chartHelperGetDataMetric= function(chart, max_point, min_point= [ 0, 0 ])
     return public;
     
     function chartAddAxeXLabelsComponent({ delta_step, step, size, width, minimum }){
-        const y= size, max= width+epsilon;
+        const y= size*1.25, max= width+epsilon;
         const { add, addText, setShift, share }= $dom.component("G", { 'dominant-baseline': "hanging" }, { namespace_group: "SVG" });
         for(let i=minimum, x=0; x<=max; x+=delta_step, i++){
             add("TEXT", { y, x });
