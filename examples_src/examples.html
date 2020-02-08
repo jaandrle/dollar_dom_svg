@@ -11,7 +11,7 @@
 <body>
     <article>
         <h1>gulp_place("app.name", "variable") — Examples</h1>
-        <a href="https://github.com/jaandrle/dollar_dom_component">⇠ Go back to GitHub repository</a>
+        <a href="https://github.com/jaandrle/dollar_dom_svg">⇠ Go back to GitHub repository</a>
         <h2 id="heading_content">Content</h2>
         <ul class="content"></ul>
         <script>
@@ -31,7 +31,7 @@
                 document.execCommand('insertText', false, ev.clipboardData.getData('text/plain'));
             });
             document.addEventListener("keydown", function enableInScriptTags(ev){
-                if(ev.target.tagName!=="SCRIPT") return false;
+                if(ev.target.tagName!=="SCRIPT"&&ev.target.tagName!=="STYLE") return false;
                 const { keyCode }= ev;
                 if(keyCode!==9&&keyCode!==13) return false;
 

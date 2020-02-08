@@ -51,6 +51,10 @@
     "latedef": "true",
     "maxparams": 3,
     "maxdepth": 2,
-    "maxcomplexity": 10
+    "maxcomplexity": 10,
+    "globals": {
+      "$dom": false,
+      "public": true
+    }
   }
 }
