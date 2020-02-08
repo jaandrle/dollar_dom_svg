@@ -2,6 +2,7 @@
 /* global $dom, gulp_place */
 const $dom_svg= (function(){
     const public= {};
+    const epsilon= 0.001; /* => for supports non presize values */
     gulp_place("public_components/*.sub.js", "files_once");
     gulp_place("public_utils/*.sub.js", "files_once");
     return public;

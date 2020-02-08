@@ -54,6 +54,7 @@
     "maxcomplexity": 10,
     "globals": {
       "$dom": false,
+      "epsilon": false,
       "public": true
     }
   }

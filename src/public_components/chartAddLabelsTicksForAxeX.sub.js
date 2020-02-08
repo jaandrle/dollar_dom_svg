@@ -3,7 +3,6 @@
 public.chartAddLabelsTicksForAxeX= function({
     className= "C__chartAxeX",
     width= 233.33,
-    height= 10,
     size= 1,
     delta= 1,
     step= 1,

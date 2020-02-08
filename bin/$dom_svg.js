@@ -2,6 +2,7 @@
 /* global $dom, gulp_place */
 const $dom_svg= (function(){
     const public= {};
+    const epsilon= 0.001; /* => for supports non presize values */
     
     public.chartAddAxeLine= function({ width, height }){
         if(width>height) return $dom.component("LINE", { y1: 0, y2: 0, x1: 0, x2: width }, { namespace_group: "SVG" }).share;
@@ -31,7 +32,6 @@ const $dom_svg= (function(){
     public.chartAddLabelsTicksForAxeX= function({
         className= "C__chartAxeX",
         width= 233.33,
-        height= 10,
         size= 1,
         delta= 1,
         step= 1,
@@ -65,15 +65,14 @@ const $dom_svg= (function(){
     }){
         const
             delta_step= delta*step,
-            dy= "1.25%",
             x= width*0.75;
         const { component, setShift, share }= $dom.component("G", { className }, { namespace_group: "SVG" });
         setShift(0);
         if(labels){
-            component(chartAddAxeYLabelsComponent({ delta_step, step, dy, x, height, minimum }), -1);
+            component(chartAddAxeYLabelsComponent({ delta_step, step, x, height, minimum }), -1);
         }
         if(ticks){
-            component(chartAddAxeYTicksComponent({ delta_step, dy, height, width, size }), -1);
+            component(chartAddAxeYTicksComponent({ delta_step, height, width, size }), -1);
         }
         return share;
     };
@@ -107,9 +106,9 @@ public.chartHelperGetDataMetric= function(chart, max_point, min_point= [ 0, 0 ])
     return public;
     
     function chartAddAxeXLabelsComponent({ delta_step, step, size, width, minimum }){
-        const y= size;
+        const y= size, max= width+epsilon;
         const { add, addText, setShift, share }= $dom.component("G", { 'dominant-baseline': "hanging" }, { namespace_group: "SVG" });
-        for(let i=minimum, x=0; x<=width; x+=delta_step, i++){
+        for(let i=minimum, x=0; x<=max; x+=delta_step, i++){
             add("TEXT", { y, x });
                 addText(i*step);
             setShift(-3);
@@ -117,17 +116,18 @@ public.chartHelperGetDataMetric= function(chart, max_point, min_point= [ 0, 0 ])
         return share;
     }
     function chartAddAxeXTicksComponent({ delta_step, width, size }){
-        const ry= size/2;
+        const ry= size/2, max= width+epsilon;
         const { add, setShift, share }= $dom.component("G", null, { namespace_group: "SVG" });
-        for(let i=0, x=0; x<=width; x+=delta_step, i++){
+        for(let i=0, x=0; x<=max; x+=delta_step, i++){
             add("LINE", { x1: x, y1: -ry, x2: x, y2: ry });
             setShift(-2);
         }
         return share;
     }
-    function chartAddAxeYLabelsComponent({ delta_step, step, dy, x, height, minimum }){
+    function chartAddAxeYLabelsComponent({ delta_step, step, x, height, minimum }){
+        const dy= "2%";
         const { add, addText, setShift, share }= $dom.component("G", null, { namespace_group: "SVG" });
-        for(let i=minimum, y=height; y>=-0.001; y+=delta_step, i++){
+        for(let i=minimum, y=height; y>=-epsilon; y+=delta_step, i++){
             add("TEXT", { x, y, dy });
                 addText(i*step);
             setShift(-3);
@@ -137,7 +137,7 @@ public.chartHelperGetDataMetric= function(chart, max_point, min_point= [ 0, 0 ])
     function chartAddAxeYTicksComponent({ delta_step, height, width, size }){
         const x1= width-size/2, x2= width+size/2;
         const { add, setShift, share }= $dom.component("G", null, { namespace_group: "SVG" });
-        for(let i=0, y=height; y>=-0.001; y+=delta_step, i++){
+        for(let i=0, y=height; y>=-epsilon; y+=delta_step, i++){
             add("LINE", { x1, y1: y, x2, y2: y });
             setShift(-2);
         }

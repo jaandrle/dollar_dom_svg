@@ -52,7 +52,7 @@ input:hover, button:hover, input:focus, button:focus {
     font-weight: bold;
     white-space: break-spaces;
     padding: 1rem;
-    margin: -.25rem auto;
+    margin-top: -.25rem;
     border: .25rem dotted #97f497;
     background: #222;
 }
