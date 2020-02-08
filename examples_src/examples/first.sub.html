@@ -24,7 +24,7 @@ gulp_place("app._BUILD_.example_onkeyup= toKeyUp(app._BUILD_.example_el)", "eval
     const container= document.getElementById(element_id);
     simpleSVG({ dataX: [ 1, 2, 3, 4 ], dataY: [ 8, 15, 1, 30 ] }).mount(container);
 
-    function simpleSVG({ ratio= 2.333333, moveZero= [ 12.5, 10 ], dataX, dataY }){
+    function simpleSVG({ ratio= 2.333333, moveZero= [ 10, 7.5 ], dataX, dataY }){
         const /* svg dimensions */
             height= 100,
             width= ratio*height;
@@ -36,13 +36,15 @@ gulp_place("app._BUILD_.example_onkeyup= toKeyUp(app._BUILD_.example_el)", "eval
             { max }= Math,
             dX= chart_width/max(...dataX),
             dY= -chart_height/max(...dataY);
+        const /* axis params */
+            size= 2.5;
         const { add, component, share }= $dom.component("SVG", { viewBox: `0 0 ${width} ${height}` });
             component($dom_svg.chartAddAxeWrapper({ X: left_pad, Y: chart_height+bottom_pad }));
                 component($dom_svg.chartAddAxeLine({ width: chart_width, height: bottom_pad }));
-                component($dom_svg.chartAddLabelsTicksForAxeX({ width: chart_width, height: bottom_pad, delta: dX }), -1);
+                component($dom_svg.chartAddLabelsTicksForAxeX({ width: chart_width, height: bottom_pad, delta: dX, size }), -1);
             component($dom_svg.chartAddAxeWrapper({ X: 0, Y: bottom_pad }), -2);
                 component($dom_svg.chartAddAxeLine({ width: left_pad, height: chart_height }));
-                component($dom_svg.chartAddLabelsTicksForAxeY({ width: left_pad, height: chart_height, delta: dY, step: 5 }), -1);
+                component($dom_svg.chartAddLabelsTicksForAxeY({ width: left_pad, height: chart_height, delta: dY, step: 5, size }), -1);
             component($dom_svg.chartAddCanvasWrapper({ X: left_pad, Y: bottom_pad, width: chart_width, height: chart_height }), -2);
                 add("POLYLINE", { points: $dom_svg.chartHelperDataToPolylinePoints({ dX, dY, dataX, dataY }), stroke: "white", fill: "none" })
         return share;
