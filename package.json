@@ -32,7 +32,7 @@
     "url": "https://github.com/jaandrle/dollar_dom_svg/issues"
   },
   "homepage": "https://github.com/jaandrle/dollar_dom_svg",
-  "dependencies": {
+  "devDependencies": {
     "gulp": ">3.9.1",
     "gulp-concat": "2.6.1",
     "gulp-javascript-obfuscator": "1.1.5",
@@ -41,7 +41,8 @@
     "gulp-replace": "1.0.0",
     "gulp-sourcemaps": "2.6.4",
     "gulp-util": "3.0.8",
-    "jshint": "~2.9.6"
+    "jshint": "~2.9.6",
+    "lodash.template": ">=4.5.0"
   },
   "__SECTION__JSHINT": "",
   "jshintConfig": {
