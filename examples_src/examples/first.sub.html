@@ -1,0 +1,53 @@
+
+gulp_place("app._BUILD_.example_el= toELID(app._BUILD_.example_el_id++)", "eval");
+gulp_place("app._BUILD_.example_onkeyup= toKeyUp(app._BUILD_.example_el)", "eval");
+<p>TEST</p>
+<div class="output first" id="gulp_place('app._BUILD_.example_el', 'variable')"></div>
+<style contenteditable="">
+    .first svg{
+        fill: white;
+        stroke: white;
+        font-size: 3.5px;
+        stroke-width: .75;
+    }
+    .C__chartAxeX{
+        text-anchor: middle;
+    }
+    .C__chartAxeY{
+        text-anchor: end;
+    }
+</style>
+<script onkeyup="gulp_place('app._BUILD_.example_onkeyup', 'variable')" contenteditable="">
+(function(element_id){
+    //EXAMPLE START
+
+    const container= document.getElementById(element_id);
+    simpleSVG({ dataX: [ 1, 2, 3, 4 ], dataY: [ 8, 15, 1, 30 ] }).mount(container);
+
+    function simpleSVG({ ratio= 2.333333, moveZero= [ 12.5, 10 ], dataX, dataY }){
+        const /* svg dimensions */
+            height= 100,
+            width= ratio*height;
+        const /* chart dimensions (smaller than svg) */
+            [ left_pad, bottom_pad ]= moveZero,
+            chart_height= height - 2*bottom_pad,
+            chart_width= width - 2*left_pad;
+        const /* recalculate to svg size (get x/y steps) */
+            { max }= Math,
+            dX= chart_width/max(...dataX),
+            dY= -chart_height/max(...dataY);
+        const { add, component, share }= $dom.component("SVG", { viewBox: `0 0 ${width} ${height}` });
+            component($dom_svg.chartAddAxeWrapper({ X: left_pad, Y: chart_height+bottom_pad }));
+                component($dom_svg.chartAddAxeLine({ width: chart_width, height: bottom_pad }));
+                component($dom_svg.chartAddLabelsTicksForAxeX({ width: chart_width, height: bottom_pad, delta: dX }), -1);
+            component($dom_svg.chartAddAxeWrapper({ X: 0, Y: bottom_pad }), -2);
+                component($dom_svg.chartAddAxeLine({ width: left_pad, height: chart_height }));
+                component($dom_svg.chartAddLabelsTicksForAxeY({ width: left_pad, height: chart_height, delta: dY, step: 5 }), -1);
+            component($dom_svg.chartAddCanvasWrapper({ X: left_pad, Y: bottom_pad, width: chart_width, height: chart_height }), -2);
+                add("POLYLINE", { points: $dom_svg.chartHelperDataToPolylinePoints({ dX, dY, dataX, dataY }), stroke: "white", fill: "none" })
+        return share;
+    }
+    //EXAMPLE END
+})("gulp_place('app._BUILD_.example_el', 'variable')");
+</script>
+<!-- example source links -->

@@ -1,0 +1,56 @@
+{
+  "__SECTION_GULP": "",
+  "fullName": "$dom_svg",
+  "version": "0.1.0",
+  "build": "0001",
+  "__Comment__sequence": "exclamation mark (!) on the start of task name means to escape it",
+  "sequence": [
+    "javascript",
+    "examples"
+  ],
+  "__SECTION_NPM": "",
+  "name": "dollar_dom_svg",
+  "description": "This repository shows usage of $dom.component for creating SVG (charts) by using some helper functions. Also, it can be used as inspiration for different library and or plain SVG.",
+  "main": "gulpfile.js",
+  "directories": {
+    "bin": "bin/",
+    "src": "src/",
+    "examples_bin": "docs/",
+    "examples_src": "examples_src/"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "run": "gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jaandrle/dollar_dom_svg.git"
+  },
+  "author": "Jan Andrle <andrle.jan@centrum.cz>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jaandrle/dollar_dom_svg/issues"
+  },
+  "homepage": "https://github.com/jaandrle/dollar_dom_svg",
+  "dependencies": {
+    "gulp": ">3.9.1",
+    "gulp-concat": "2.6.1",
+    "gulp-javascript-obfuscator": "1.1.5",
+    "gulp-minify": "3.1.0",
+    "gulp-rename": "1.4.0",
+    "gulp-replace": "1.0.0",
+    "gulp-sourcemaps": "2.6.4",
+    "gulp-util": "3.0.8",
+    "jshint": "~2.9.6"
+  },
+  "__SECTION__JSHINT": "",
+  "jshintConfig": {
+    "esversion": 6,
+    "browser": "true",
+    "undef": "true",
+    "latedef": "true",
+    "maxparams": 3,
+    "maxdepth": 2,
+    "maxcomplexity": 10
+  }
+}
