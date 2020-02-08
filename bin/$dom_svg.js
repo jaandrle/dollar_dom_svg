@@ -22,21 +22,20 @@ const $dom_svg= (function(){
             if(width>height) return $dom.component("LINE", { y1: 0, y2: 0, x1: 0, x2: width }, { namespace_group: "SVG" }).share;
             return $dom.component("LINE", { x1: width, x2: width, y1: 0, y2: height }, { namespace_group: "SVG" }).share;
         },
-        chartAddLabelsTicksForAxeX: function({ className= "C__chartAxeX", width= 233.33, height= 10, delta= 1, step= 1, minimum= 0, labels= true, ticks= true }){
+        chartAddLabelsTicksForAxeX: function({ className= "C__chartAxeX", width= 233.33, height= 10, size= 1, delta= 1, step= 1, minimum= 0, labels= true, ticks= true }){
             const
-                delta_step= delta*step,
-                y= height;
+                delta_step= delta*step;
             const { component, setShift, share }= $dom.component("G", { className }, { namespace_group: "SVG" });
             setShift(0);
             if(labels){
-                component(chartAddAxeXLabelsComponent({ delta_step, step, y, width, minimum }), -1);
+                component(chartAddAxeXLabelsComponent({ delta_step, step, size, width, minimum }), -1);
             }
             if(ticks){
-                component(chartAddAxeXTicksComponent({ delta_step, width }), -1);
+                component(chartAddAxeXTicksComponent({ delta_step, width, size }), -1);
             }
             return share;
         },
-        chartAddLabelsTicksForAxeY: function({ className= "C__chartAxeY", width= 7.5, height= 100, delta= 1, step= 1, minimum= 0, labels= true, ticks= true }){
+        chartAddLabelsTicksForAxeY: function({ className= "C__chartAxeY", width= 7.5, height= 100, size= 1, delta= 1, step= 1, minimum= 0, labels= true, ticks= true }){
             const
                 delta_step= delta*step,
                 dy= "1.25%",
@@ -47,7 +46,7 @@ const $dom_svg= (function(){
                 component(chartAddAxeYLabelsComponent({ delta_step, step, dy, x, height, minimum }), -1);
             }
             if(ticks){
-                component(chartAddAxeYTicksComponent({ delta_step, dy, height }), -1);
+                component(chartAddAxeYTicksComponent({ delta_step, dy, height, width, size }), -1);
             }
             return share;
         },
@@ -56,8 +55,9 @@ const $dom_svg= (function(){
         }
     };
 
-    function chartAddAxeXLabelsComponent({ delta_step, step, y, width, minimum }){
-        const { add, addText, setShift, share }= $dom.component("G", null, { namespace_group: "SVG" });
+    function chartAddAxeXLabelsComponent({ delta_step, step, size, width, minimum }){
+        const y= size;
+        const { add, addText, setShift, share }= $dom.component("G", { 'dominant-baseline': "hanging" }, { namespace_group: "SVG" });
         for(let i=minimum, x=0; x<=width; x+=delta_step, i++){
             add("TEXT", { y, x });
                 addText(i*step);
@@ -65,11 +65,11 @@ const $dom_svg= (function(){
         }
         return share;
     }
-    function chartAddAxeXTicksComponent({ delta_step, width }){
-        const rx= "1.5%";
+    function chartAddAxeXTicksComponent({ delta_step, width, size }){
+        const ry= size/2;
         const { add, setShift, share }= $dom.component("G", null, { namespace_group: "SVG" });
         for(let i=0, x=0; x<=width; x+=delta_step, i++){
-            add("LINE", { x1: x, y1: -rx, x2: x, y2: rx });
+            add("LINE", { x1: x, y1: -ry, x2: x, y2: ry });
             setShift(-2);
         }
         return share;
@@ -77,17 +77,17 @@ const $dom_svg= (function(){
 
     function chartAddAxeYLabelsComponent({ delta_step, step, dy, x, height, minimum }){
         const { add, addText, setShift, share }= $dom.component("G", null, { namespace_group: "SVG" });
-        for(let i=minimum, y=height; y>=0; y+=delta_step, i++){
+        for(let i=minimum, y=height; y>=-0.001; y+=delta_step, i++){
             add("TEXT", { x, y, dy });
                 addText(i*step);
             setShift(-3);
         }
         return share;
     }
-    function chartAddAxeYTicksComponent({ delta_step, height }){
-        const x1= "4.75%", x2= "6%";
+    function chartAddAxeYTicksComponent({ delta_step, height, width, size }){
+        const x1= width-size/2, x2= width+size/2;
         const { add, setShift, share }= $dom.component("G", null, { namespace_group: "SVG" });
-        for(let i=0, y=height; y>=0; y+=delta_step, i++){
+        for(let i=0, y=height; y>=-0.001; y+=delta_step, i++){
             add("LINE", { x1, y1: y, x2, y2: y });
             setShift(-2);
         }
