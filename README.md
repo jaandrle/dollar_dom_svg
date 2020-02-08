@@ -5,6 +5,6 @@ This repository shows usage of [`$dom.component`](https://github.com/jaandrle/do
 See [examples in `docs` folder](https://jaandrle.github.io/dollar_dom_svg/examples.html).
 
 ## Important info
-SVG support in [`$dom.component`](https://github.com/jaandrle/dollar_dom_component) is for now under development.
+SVG support in [`$dom.component`](https://github.com/jaandrle/dollar_dom_component/tree/svg_support) is for now under development.
 
 __Don’t use in production enviroment!__
