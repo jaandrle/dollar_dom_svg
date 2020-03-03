@@ -159,17 +159,17 @@
             //EXAMPLE START
         
             const container= document.getElementById(element_id);
-            simpleSVGChart({ dataX: [ 0, 2, 3, 4, 6 ], dataY: [ 2, 8, 1, 0, 20 ] }).mount(container);
+            simpleSVGChart({ dataX: [ 0, 2, 3, 4, 6 ], dataY: [ -2, -5, 1, 0, 20 ] }).mount(container);
             simpleSVGChartDataLabel().mount(container);
         
             function simpleSVGChart({ dataX, dataY }){
                 const /* helpers */
-                    { max }= Math,
+                    { min, max }= Math,
                     { getAreasSizes, getDataMetric, getAxeXParams, getAxeYParams, dataToPolylinePoints }= $dom_svg.chart_helpers,
                     { addAxeWrapper, addAxeLine, addLabelsTicksForAxeX, addLabelsTicksForAxeY, addCanvasWrapper }= $dom_svg.chart_parts;
                 const /* chart global params */
                     [ viewBox, axis, chart ]= getAreasSizes([ 15, 8 ]),
-                    metric= getDataMetric(chart, [ max(...dataX), max(...dataY) ]);
+                    metric= getDataMetric(chart, [ max(...dataX), max(...dataY) ], [ min(0, ...dataX), min(0, ...dataY) ]);
                 const /* axis params */
                     size= 2.5,
                     axe_x= getAxeXParams(axis, chart, metric, { size }),
@@ -182,12 +182,12 @@
                         component(addAxeLine(axe_y));
                         component(addLabelsTicksForAxeY(axe_y), -1);
                     component(addCanvasWrapper({ axis, chart }), -2);
-                        add("polyline", Object.assign({ points: dataToPolylinePoints({ metric, dataX, dataY }), stroke: "rgb(var(--chart-data-color))", fill: "none" }, markerRefernce("data_marker")));
+                        add("polyline", Object.assign({ points: dataToPolylinePoints({ metric, dataX, dataY }), stroke: "rgb(var(--chart-data-color))", fill: "none" }, markerReference("data_marker")));
                     add("defs", null, -2);
                         component(markerComponent({ id: "data_marker", fill: "rgba(var(--chart-data-color), .25)", stroke: "rgb(var(--chart-data-color))" }))
                 return share;
                 
-                function markerRefernce(id){
+                function markerReference(id){
                     const url= `url(#${id})`;
                     return { "marker-start": url, "marker-mid": url, "marker-end": url };
                 }
