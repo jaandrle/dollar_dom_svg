@@ -1,5 +1,5 @@
 /* jshint esversion: 6,-W097, -W040, browser: true, expr: true, undef: true */
-public.chartAddCanvasWrapper= function({
+public.chart_parts.addCanvasWrapper= function({
     className= "C__chartCanvas",
     axis: [ x, y ],
     chart: [ width, height ]

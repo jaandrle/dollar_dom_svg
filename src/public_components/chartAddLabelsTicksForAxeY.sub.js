@@ -1,6 +1,6 @@
 /* jshint esversion: 6,-W097, -W040, browser: true, expr: true, undef: true */
 /* global chartAddAxeYLabelsComponent, chartAddAxeYTicksComponent */
-public.chartAddLabelsTicksForAxeY= function({
+public.chart_parts.addLabelsTicksForAxeY= function({
     className= "C__chartAxeY",
     width= 7.5,
     height= 100,

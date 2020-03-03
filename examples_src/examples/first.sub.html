@@ -30,23 +30,26 @@ gulp_place("app._BUILD_.example_onkeyup= toKeyUp(app._BUILD_.example_el)", "eval
     simpleSVGChart({ dataX: [ 0, 2, 3, 4, 6 ], dataY: [ 2, 8, 1, 0, 20 ] }).mount(container);
 
     function simpleSVGChart({ dataX, dataY }){
-        const [ viewBox, axis, chart ]= $dom_svg.chartHelperGetAreasSizes([ 10, 7.5 ]);
-        const
+        const /* helpers */
             { max }= Math,
-            metric= $dom_svg.chartHelperGetDataMetric(chart, [ max(...dataX), max(...dataY) ]);
+            { getAreasSizes, getDataMetric, getAxeXParams, getAxeYParams, dataToPolylinePoints }= $dom_svg.chart_helpers,
+            { addAxeWrapper, addAxeLine, addLabelsTicksForAxeX, addLabelsTicksForAxeY, addCanvasWrapper }= $dom_svg.chart_parts;
+        const /* chart global params */
+            [ viewBox, axis, chart ]= getAreasSizes([ 10, 8 ]),
+            metric= getDataMetric(chart, [ max(...dataX), max(...dataY) ]);
         const /* axis params */
             size= 2.5,
-            axe_x= $dom_svg.chartHelperGetAxeXParams(axis, chart, metric, { size }),
-            axe_y= $dom_svg.chartHelperGetAxeYParams(axis, chart, metric, { step: 5, size });
+            axe_x= getAxeXParams(axis, chart, metric, { size }),
+            axe_y= getAxeYParams(axis, chart, metric, { step: 5, size });
         const { add, component, share }= $dom.component("svg", { className: "C__chart", viewBox });
-            component($dom_svg.chartAddAxeWrapper(axe_x));
-                component($dom_svg.chartAddAxeLine(axe_x));
-                component($dom_svg.chartAddLabelsTicksForAxeX(axe_x), -1);
-            component($dom_svg.chartAddAxeWrapper(axe_y), -2);
-                component($dom_svg.chartAddAxeLine(axe_y));
-                component($dom_svg.chartAddLabelsTicksForAxeY(axe_y), -1);
-            component($dom_svg.chartAddCanvasWrapper({ axis, chart }), -2);
-                add("polyline", { points: $dom_svg.chartHelperDataToPolylinePoints({ metric, dataX, dataY }), stroke: "white", fill: "none" })
+            component(addAxeWrapper(axe_x));
+                component(addAxeLine(axe_x));
+                component(addLabelsTicksForAxeX(axe_x), -1);
+            component(addAxeWrapper(axe_y), -2);
+                component(addAxeLine(axe_y));
+                component(addLabelsTicksForAxeY(axe_y), -1);
+            component(addCanvasWrapper({ axis, chart }), -2);
+                add("polyline", { points: dataToPolylinePoints({ metric, dataX, dataY }), stroke: "white", fill: "none" })
         return share;
     }
     //EXAMPLE END
