@@ -12,7 +12,7 @@ public.chartAddLabelsTicksForAxeX= function({
 }){
     const
         delta_step= delta*step;
-    const { component, setShift, share }= $dom.component("G", { className }, { namespace_group: "SVG" });
+    const { component, setShift, share }= $dom.component("g", { className }, { namespace_group: "SVG" });
     setShift(0);
     if(labels){
         component(chartAddAxeXLabelsComponent({ delta_step, step, size, width, minimum }), -1);

@@ -38,7 +38,7 @@ gulp_place("app._BUILD_.example_onkeyup= toKeyUp(app._BUILD_.example_el)", "eval
             size= 2.5,
             axe_x= $dom_svg.chartHelperGetAxeXParams(axis, chart, metric, { size }),
             axe_y= $dom_svg.chartHelperGetAxeYParams(axis, chart, metric, { step: 5, size });
-        const { add, component, share }= $dom.component("SVG", { className: "C__chart", viewBox });
+        const { add, component, share }= $dom.component("svg", { className: "C__chart", viewBox });
             component($dom_svg.chartAddAxeWrapper(axe_x));
                 component($dom_svg.chartAddAxeLine(axe_x));
                 component($dom_svg.chartAddLabelsTicksForAxeX(axe_x), -1);
@@ -46,7 +46,7 @@ gulp_place("app._BUILD_.example_onkeyup= toKeyUp(app._BUILD_.example_el)", "eval
                 component($dom_svg.chartAddAxeLine(axe_y));
                 component($dom_svg.chartAddLabelsTicksForAxeY(axe_y), -1);
             component($dom_svg.chartAddCanvasWrapper({ axis, chart }), -2);
-                add("POLYLINE", { points: $dom_svg.chartHelperDataToPolylinePoints({ metric, dataX, dataY }), stroke: "white", fill: "none" })
+                add("polyline", { points: $dom_svg.chartHelperDataToPolylinePoints({ metric, dataX, dataY }), stroke: "white", fill: "none" })
         return share;
     }
     //EXAMPLE END

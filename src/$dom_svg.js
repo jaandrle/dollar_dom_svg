@@ -1,4 +1,4 @@
-/* jshint esversion: 6, -W027, -W097, -W040, browser: true, expr: true, undef: true */
+/* jshint esversion: 6, -W027, -W097, -W040, browser: true, expr: true, undef: true, maxparams: 4 */
 /* global $dom, gulp_place */
 const $dom_svg= (function(){
     const public= {};

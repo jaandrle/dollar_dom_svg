@@ -4,7 +4,7 @@ public.chartAddCanvasWrapper= function({
     axis: [ x, y ],
     chart: [ width, height ]
 }){
-    return $dom.component("SVG", {
+    return $dom.component("svg", {
         viewBox: `0 ${-height} ${width} ${height}`,
         width, height, x, y,
         overflow: "visible",
