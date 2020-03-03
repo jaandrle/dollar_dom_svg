@@ -8,14 +8,15 @@ public.chart_parts.addLabelsTicksForAxeX= function({
     step= 1,
     minimum= 0,
     labels= true,
-    ticks= true
+    ticks= true,
+    labelMap
 }){
     const
         delta_step= delta*step;
     const { component, setShift, share }= $dom.component("g", { className }, { namespace_group: "SVG" });
     setShift(0);
     if(labels){
-        component(chartAddAxeXLabelsComponent({ delta_step, step, size, width, minimum }), -1);
+        component(chartAddAxeXLabelsComponent({ delta_step, step, size, width, minimum, labelMap }), -1);
     }
     if(ticks){
         component(chartAddAxeXTicksComponent({ delta_step, width, size }), -1);

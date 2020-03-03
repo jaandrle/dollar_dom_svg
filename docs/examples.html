@@ -122,6 +122,9 @@
         
         <p>TEST</p>
         <style style="margin-bottom: -.25rem;" contenteditable="">
+            .C__chart, .C__chartDataLabel{
+                --chart-data-color: 240, 223, 94;
+            }
             .C__chart{
                 width: 50%;
                 margin: 0 25%;
@@ -139,6 +142,16 @@
             .C__chartAxeY{
                 text-anchor: end;
             }
+            #data_marker{
+                stroke-width: 3;
+            }
+            .C__chartDataLabel{
+                width: 15rem;
+                font-size: 5px;
+            }
+            .C__chartDataLabel text{
+                fill: white;
+            }
         </style>
         <div class="output" id="example_element_001"></div>
         <script onkeyup="onKeyup(this, 'example_element_001')" contenteditable="">
@@ -147,6 +160,7 @@
         
             const container= document.getElementById(element_id);
             simpleSVGChart({ dataX: [ 0, 2, 3, 4, 6 ], dataY: [ 2, 8, 1, 0, 20 ] }).mount(container);
+            simpleSVGChartDataLabel().mount(container);
         
             function simpleSVGChart({ dataX, dataY }){
                 const /* helpers */
@@ -154,12 +168,12 @@
                     { getAreasSizes, getDataMetric, getAxeXParams, getAxeYParams, dataToPolylinePoints }= $dom_svg.chart_helpers,
                     { addAxeWrapper, addAxeLine, addLabelsTicksForAxeX, addLabelsTicksForAxeY, addCanvasWrapper }= $dom_svg.chart_parts;
                 const /* chart global params */
-                    [ viewBox, axis, chart ]= getAreasSizes([ 10, 8 ]),
+                    [ viewBox, axis, chart ]= getAreasSizes([ 15, 8 ]),
                     metric= getDataMetric(chart, [ max(...dataX), max(...dataY) ]);
                 const /* axis params */
                     size= 2.5,
                     axe_x= getAxeXParams(axis, chart, metric, { size }),
-                    axe_y= getAxeYParams(axis, chart, metric, { step: 5, size });
+                    axe_y= getAxeYParams(axis, chart, metric, { step: 5, size, labelMap: t=> `${t}°C` });
                 const { add, component, share }= $dom.component("svg", { className: "C__chart", viewBox });
                     component(addAxeWrapper(axe_x));
                         component(addAxeLine(axe_x));
@@ -168,13 +182,38 @@
                         component(addAxeLine(axe_y));
                         component(addLabelsTicksForAxeY(axe_y), -1);
                     component(addCanvasWrapper({ axis, chart }), -2);
-                        add("polyline", { points: dataToPolylinePoints({ metric, dataX, dataY }), stroke: "white", fill: "none" })
+                        add("polyline", Object.assign({ points: dataToPolylinePoints({ metric, dataX, dataY }), stroke: "rgb(var(--chart-data-color))", fill: "none" }, markerRefernce("data_marker")));
+                    add("defs", null, -2);
+                        component(markerComponent({ id: "data_marker", fill: "rgba(var(--chart-data-color), .25)", stroke: "rgb(var(--chart-data-color))" }))
+                return share;
+                
+                function markerRefernce(id){
+                    const url= `url(#${id})`;
+                    return { "marker-start": url, "marker-mid": url, "marker-end": url };
+                }
+                function markerComponent({ id, fill, stroke, size= 3.5 }){
+                    const { add, share }= $dom.component("marker", {
+                        id, fill, stroke,
+                        viewBox: "0 0 10 10", refX: 5, refY: 5,
+                        markerWidth: size, markerHeight: size
+                    }, { namespace_group: "SVG" });
+                        add("circle", { cx: 5, cy: 5, r: 4 });
+                    return share;
+                }
+            }
+            function simpleSVGChartDataLabel(){
+                const dy= "4%";
+                const { add, share }= $dom.component("svg", { className: "C__chartDataLabel", viewBox: "0 0 50 30" });
+                    add("polyline", { points: "0,10 10,10 20,10", stroke: "rgb(var(--chart-data-color))", fill: "none", "marker-mid": "url(#data_marker)" });
+                    add("text", { textContent: "Value1", x: 25, y: 10, dy }, -1);
+                    add("polyline", { points: "0,20 10,20 20,20", stroke: "grey", fill: "none" }, -1);
+                    add("text", { textContent: "Value2", x: 25, y: 20, dy }, -1);
                 return share;
             }
             //EXAMPLE END
         })("example_element_001");
         </script>
-        <p class="notes"><a href="https://github.com/jaandrle/dollar_dom_svg/blob/master/docs/examples.html#L146" target="_blank">View with highliting (link to source of this file)</a></p>
+        <p class="notes"><a href="https://github.com/jaandrle/dollar_dom_svg/blob/master/docs/examples.html#L159" target="_blank">View with highliting (link to source of this file)</a></p>
 
         
         <p>TEST</p>
@@ -237,7 +276,7 @@
         //EXAMPLE END
         })("example_element_002");
         </script>
-        <p class="notes"><a href="https://github.com/jaandrle/dollar_dom_svg/blob/master/docs/examples.html#L189" target="_blank">View with highliting (link to source of this file)</a></p>
+        <p class="notes"><a href="https://github.com/jaandrle/dollar_dom_svg/blob/master/docs/examples.html#L228" target="_blank">View with highliting (link to source of this file)</a></p>
 
 
         <script>

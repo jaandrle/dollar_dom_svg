@@ -52,14 +52,15 @@ const $dom_svg= (function(){
         step= 1,
         minimum= 0,
         labels= true,
-        ticks= true
+        ticks= true,
+        labelMap
     }){
         const
             delta_step= delta*step;
         const { component, setShift, share }= $dom.component("g", { className }, { namespace_group: "SVG" });
         setShift(0);
         if(labels){
-            component(chartAddAxeXLabelsComponent({ delta_step, step, size, width, minimum }), -1);
+            component(chartAddAxeXLabelsComponent({ delta_step, step, size, width, minimum, labelMap }), -1);
         }
         if(ticks){
             component(chartAddAxeXTicksComponent({ delta_step, width, size }), -1);
@@ -76,7 +77,8 @@ const $dom_svg= (function(){
         step= 1,
         minimum= 0,
         labels= true,
-        ticks= true
+        ticks= true,
+        labelMap
     }){
         const
             delta_step= delta*step,
@@ -84,7 +86,7 @@ const $dom_svg= (function(){
         const { component, setShift, share }= $dom.component("g", { className }, { namespace_group: "SVG" });
         setShift(0);
         if(labels){
-            component(chartAddAxeYLabelsComponent({ delta_step, step, x, height, minimum }), -1);
+            component(chartAddAxeYLabelsComponent({ delta_step, step, x, height, minimum, labelMap }), -1);
         }
         if(ticks){
             component(chartAddAxeYTicksComponent({ delta_step, height, width, size }), -1);
@@ -160,9 +162,10 @@ const $dom_svg= (function(){
     };
     return public;
     
-    function chartAddAxeXLabelsComponent({ delta_step, step, size, width, minimum }){
+    function chartAddAxeXLabelsComponent({ delta_step, step, size, width, minimum, labelMap }){
         const y= size*1.25, max= width+epsilon;
-        const { add, addText, setShift, share }= $dom.component("g", { 'dominant-baseline': "hanging" }, { namespace_group: "SVG" });
+        const { add, setShift, share, addText: write }= $dom.component("g", { 'dominant-baseline': "hanging" }, { namespace_group: "SVG" });
+        const addText= typeof labelMap==="function" ? t=>write(labelMap(t)) : write;
         for(let i=0, x=0; x<=max; x+=delta_step, i++){
             add("text", { y, x });
                 addText(minimum+i*step);
@@ -179,9 +182,10 @@ const $dom_svg= (function(){
         }
         return share;
     }
-    function chartAddAxeYLabelsComponent({ delta_step, step, x, height, minimum }){
+    function chartAddAxeYLabelsComponent({ delta_step, step, x, height, minimum, labelMap }){
         const dy= "2%";
-        const { add, addText, setShift, share }= $dom.component("g", null, { namespace_group: "SVG" });
+        const { add, setShift, share, addText: write}= $dom.component("g", null, { namespace_group: "SVG" });
+        const addText= typeof labelMap==="function" ? t=>write(labelMap(t)) : write;
         for(let i=0, y=height; y>=-epsilon; y+=delta_step, i++){
             add("text", { x, y, dy });
                 addText(minimum+i*step);

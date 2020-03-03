@@ -9,7 +9,8 @@ public.chart_parts.addLabelsTicksForAxeY= function({
     step= 1,
     minimum= 0,
     labels= true,
-    ticks= true
+    ticks= true,
+    labelMap
 }){
     const
         delta_step= delta*step,
@@ -17,7 +18,7 @@ public.chart_parts.addLabelsTicksForAxeY= function({
     const { component, setShift, share }= $dom.component("g", { className }, { namespace_group: "SVG" });
     setShift(0);
     if(labels){
-        component(chartAddAxeYLabelsComponent({ delta_step, step, x, height, minimum }), -1);
+        component(chartAddAxeYLabelsComponent({ delta_step, step, x, height, minimum, labelMap }), -1);
     }
     if(ticks){
         component(chartAddAxeYTicksComponent({ delta_step, height, width, size }), -1);
