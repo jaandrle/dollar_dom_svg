@@ -1,5 +1,5 @@
 /* jshint esversion: 6,-W097, -W040, browser: true, expr: true, undef: true */
-public.chart_helpers.getAreasSizes= function(moveZero= [ 0, 0 ], ratio= 2.333333){
+_public.chart_helpers.getAreasSizes= function(moveZero= [ 0, 0 ], ratio= 2.333333){
     const /* svg dimensions */
         height= 100,
         width= ratio*height;

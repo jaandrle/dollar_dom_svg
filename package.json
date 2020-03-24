@@ -1,7 +1,7 @@
 {
   "__SECTION_GULP": "",
   "fullName": "$dom_svg",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "build": "0001",
   "__Comment__sequence": "exclamation mark (!) on the start of task name means to escape it",
   "sequence": [
@@ -55,7 +55,7 @@
     "globals": {
       "$dom": false,
       "epsilon": false,
-      "public": true
+      "_public": true
     }
   }
 }

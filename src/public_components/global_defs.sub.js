@@ -4,7 +4,7 @@
  * @namespace global_defs
  * @memberof public
  */
-public.global_defs= (function(){
+_public.global_defs= (function(){
     const registered= new Set();
     let defs_el, mounted_el;
     return {

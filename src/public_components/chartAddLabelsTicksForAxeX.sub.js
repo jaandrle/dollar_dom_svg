@@ -1,6 +1,6 @@
 /* jshint esversion: 6,-W097, -W040, browser: true, expr: true, undef: true */
 /* global chartAddAxeXLabelsComponent, chartAddAxeXTicksComponent */
-public.chart_parts.addLabelsTicksForAxeX= function({
+_public.chart_parts.addLabelsTicksForAxeX= function({
     className= "C__chartAxeX",
     width= 233.33,
     size= 1,
