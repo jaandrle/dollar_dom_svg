@@ -9,7 +9,7 @@ module.exports= function({app, $gulp_folder, gulp, error, $g, $o, $run}){
     const { examples_bin, examples_src, bin }= app.directories;
     let links_paragraphs_buffer= [];
     return function(cb){
-        getFileAsText("https://raw.githubusercontent.com/jaandrle/dollar_dom_component/svg_support/bin/%24dom_component-min.js")
+        getFileAsText("https://raw.githubusercontent.com/jaandrle/dollar_dom_component/master/bin/%24dom_component-min.js")
         .then(function(file){
             $dom_component= file;
             
